@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
+{% block body %}
+
+<div class="bloc1">
+    <div class="jumbotron" style="padding-bottom: 30px">
+        <h1 class="display-4" style="padding-bottom: 20px">Question {{ flow.getCurrentStepNumber() }}</h1>
+
+        <div>
+            {{ form_start(form, {'action': path(app.request.attributes.get('_route'),
+                app.request.query.all | craue_removeDynamicStepNavigationParameters(flow))}) }}
+        </div>
+
+        <div>
+            {{ form_widget(form) }}
+        </div>
+
+        {{ form_rest(form) }}
+
+        {% include 'FormFlow/buttons.html.twig' %}
+        {{ form_end(form) }}
+    </div>
+</div>
+
+
+{% endblock %}
+
+{% block stylesheets %}
+
+{% endblock %}

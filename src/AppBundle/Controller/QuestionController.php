@@ -1,0 +1,51 @@
+<?php
+namespace AppBundle\Controller;
+
+use AppBundle\Flowclass\CreateQuestion;
+use AppBundle\Model\QuestionnaireHandler;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+
+class QuestionController extends Controller
+{
+    /**
+     * @Route("/question", name="question")
+     */
+    public function CreateQuestionAction()
+    {
+        $data = new QuestionnaireHandler();
+
+        /** @var CreateQuestion $flow */
+        $flow = $this->get(CreateQuestion::class); // must match the flow's service id
+        $flow->bind($data);
+
+        // form of the current step
+        $form = $flow->createForm();
+        if ($flow->isValid($form)) {
+            $flow->saveCurrentStepData($form);
+
+            if ($flow->nextStep()) {
+                // form for the next step
+                $form = $flow->createForm();
+            } else {
+                $em = $this->getDoctrine()->getManager();
+
+                foreach ($data->convertToEntities() as $value){
+                    $em->persist($value);
+                }
+
+                $em->flush();
+
+                $flow->reset(); // remove step data from the session
+
+                return $this->render('default/Result.html.twig'); // redirect when done
+            }
+        }
+
+        return $this->render('default/CreateQuestion.html.twig', array(
+            'form' => $form->createView(),
+            'flow' => $flow,
+        ));
+    }
+}
