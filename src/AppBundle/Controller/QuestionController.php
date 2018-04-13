@@ -1,7 +1,9 @@
 <?php
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\User;
 use AppBundle\Flowclass\CreateQuestion;
+use AppBundle\Flowclass\FinalStep;
 use AppBundle\Model\QuestionnaireHandler;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -20,6 +22,8 @@ class QuestionController extends Controller
         $flow = $this->get(CreateQuestion::class); // must match the flow's service id
         $flow->bind($data);
 
+
+
         // form of the current step
         $form = $flow->createForm();
         if ($flow->isValid($form)) {
@@ -31,21 +35,28 @@ class QuestionController extends Controller
             } else {
                 $em = $this->getDoctrine()->getManager();
 
+                $user = new User();
+                $em->persist($user);
+
                 foreach ($data->convertToEntities() as $value){
+                    $value->setUser($user);
                     $em->persist($value);
                 }
 
                 $em->flush();
 
+
+
                 $flow->reset(); // remove step data from the session
 
-                return $this->render('default/Result.html.twig'); // redirect when done
+               return $this->redirect($this->generateUrl('toto'));  // redirect when done
             }
         }
 
         return $this->render('default/CreateQuestion.html.twig', array(
             'form' => $form->createView(),
             'flow' => $flow,
+            'data' => $data,
         ));
     }
 }

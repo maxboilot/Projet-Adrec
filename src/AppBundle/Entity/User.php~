@@ -33,35 +33,35 @@ class User
     /**
      * @var string
      *
-     * @ORM\Column(name="lastname", type="string", length=255, nullable=true)
+     * @ORM\Column(name="lastname", type="string", length=255)
      */
     private $lastname;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="firstname", type="string", length=255, nullable=true)
+     * @ORM\Column(name="firstname", type="string", length=255)
      */
     private $firstname;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="birthat", type="date", nullable=true)
+     * @ORM\Column(name="birthat", type="date")
      */
     private $birthat;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="phone", type="integer", nullable=true)
+     * @ORM\Column(name="phone", type="integer")
      */
     private $phone;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="email", type="string", length=255, nullable=true)
+     * @ORM\Column(name="email", type="string", length=255)
      */
     private $email;
 
@@ -195,45 +195,5 @@ class User
     {
         return $this->email;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->answers = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Add answer
-     *
-     * @param \AppBundle\Entity\Answer $answer
-     *
-     * @return User
-     */
-    public function addAnswer(\AppBundle\Entity\Answer $answer)
-    {
-        $this->answers[] = $answer;
-
-        return $this;
-    }
-
-    /**
-     * Remove answer
-     *
-     * @param \AppBundle\Entity\Answer $answer
-     */
-    public function removeAnswer(\AppBundle\Entity\Answer $answer)
-    {
-        $this->answers->removeElement($answer);
-    }
-
-    /**
-     * Get answers
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getAnswers()
-    {
-        return $this->answers;
-    }
 }
+

@@ -5,9 +5,9 @@
 
 <div class="bloc1">
     <div class="jumbotron" style="padding-bottom: 30px">
-        <h1 class="display-4" style="padding-bottom: 20px">Question {{ flow.getCurrentStepNumber() }}</h1>
+        <h1 class="display-4 numQuest" style="padding-bottom: 18px; text-align: center">Question {{ flow.getCurrentStepNumber() }}</h1>
 
-        <div>
+        <div style="padding-top: 13px">
             {{ form_start(form, {'action': path(app.request.attributes.get('_route'),
                 app.request.query.all | craue_removeDynamicStepNavigationParameters(flow))}) }}
         </div>
@@ -15,6 +15,55 @@
         <div>
             {{ form_widget(form) }}
         </div>
+
+        {% if flow.getCurrentStepNumber() == 10 %}
+            <style>.numQuest{display: none}</style>
+            <div style="text-align: center; ">
+               <h1 style="padding-bottom: 20px">Récapitulatif...</h1><br/>
+                <div style="padding-bottom: 30px; font-size: 22px">
+                Vous êtes {{ data['statut'] }}<br/>
+
+                {% if data['statut'] == 'Salarié' %}
+                    Actuellement en {{ data['contratType'] }}<br/>
+
+                    {% if data['dateFinContrat'] is defined %}
+                        Avec une date de fin de contrat au {{ data['dateFinContrat']|date("d-m-Y")}}<br/>
+                    {% endif %}
+
+                    {% if data['contratType'] == 'CDI' %}
+                        {% if data['tempsEnCdi'] == 'plus d\'1 an'%}
+                            Depuis plus d'un an<br/>
+                        {% else %}
+                            Depuis moins d'un an<br/>
+                        {% endif %}
+                    {% endif %}
+
+                {% endif %}
+
+                {% if data['statut'] == 'Demandeur(se) d\'emploi' %}
+                    {% if data['pole'] == 'Oui' %}
+                        Indemnisé par Pôle Emploi<br/>
+                    {% else %}
+                        Non Indémnisé par Pôle Emploi<br/>
+                    {% endif %}
+                {% endif %}
+
+                {% if data['RqthMs'] is defined and data['RqthMs']|length > 0 %}
+                    Reconnus RQTH ou bénéficiant de minima sociaux<br/>
+                {% else %}
+                    N'étant pas reconnus RQTH ou ne bénéficiant pas de minima sociaux<br/>
+                {% endif %}
+
+                {% for answer in data['Etudes'] %}
+                    Avec un niveau d'étude {{ answer }}<br/>
+                {% endfor %}
+
+                {% for answer in data['Compet'] %}
+                    Avec la compétence: {{ answer }}<br/>
+                {% endfor %}
+                </div>
+            </div>
+        {% endif %}
 
         {{ form_rest(form) }}
 

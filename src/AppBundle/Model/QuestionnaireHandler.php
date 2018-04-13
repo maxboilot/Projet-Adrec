@@ -13,7 +13,7 @@ use AppBundle\Entity\Answer;
 class QuestionnaireHandler implements \ArrayAccess
 {
     /**
-     * @var string[]
+     * @var string[]|string[][]
      */
     private $answers = [];
 
@@ -59,13 +59,29 @@ class QuestionnaireHandler implements \ArrayAccess
         $answers = array();
 
         foreach ($this->answers as $question => $value){
-            $answer = new Answer();
-            $answer->setNumanswer($question);
-            $answer->setAnswer($value);
+            if (is_string($value)){
+                $answers[] = $this->createAnswer($question, $value);
+            } elseif (is_array($value)) {
+                foreach ($value as $val){
+                    $answers[] = $this->createAnswer($question, $val);
+                }
+            }
 
-            $answers[] = $answer;
         }
 
         return $answers;
+    }
+
+    /**
+     * @param string $question
+     * @param string $val
+     * @return Answer
+     */
+    private function createAnswer($question, $val)
+    {
+        $answer = new Answer();
+        $answer->setNumanswer($question);
+        $answer->setAnswer($val);
+        return $answer;
     }
 }

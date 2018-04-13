@@ -11,11 +11,11 @@ class CreateQuestionStep2Form extends AbstractType {
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
 
-        $validValues = array('Q2.1'=>'CDD' ,'Q2.2'=>'CDI' ,'Q2.3'=>'Intérim');
-        $builder->add('contractType', ChoiceType::class, array(
+        $validValues = array('CDD'=>'CDD' ,'CDI'=>'CDI' ,'Interim'=>'Intérim');
+        $builder->add('contratType', ChoiceType::class, array(
             'choices' => array_combine($validValues, $validValues),
             'placeholder' => '',
-            'label' => 'Quel à été votre dernier type de contrat?',
+            'label' => 'Quel est le type de votre contrat de travail actuel?',
             'expanded' => true,
         ));
     }
