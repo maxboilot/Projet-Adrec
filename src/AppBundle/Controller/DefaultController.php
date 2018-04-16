@@ -17,4 +17,14 @@ class DefaultController extends Controller
             'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
         ]);
     }
+    /**
+  * @Route("/{_locale}/resultat_formulaire", name="result_form")
+  */
+
+  public function userAction(Request $request)
+  {
+
+      return $this->render('default/result_form.html.twig', [
+
+      ]);
 }
