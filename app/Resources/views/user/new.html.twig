@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <p class="title">Dernière étape</p>
+
+    <p class="info">Merci de valider vos informations personnels</h2>
+
+      {% form_theme form 'bootstrap_4_layout.html.twig' %}
+
+    {{ form_start(form) }}
+
+
+         <div class="ma-classe-custom">
+
+
+           {{ form_widget(form) }}
+
+
+           <button type="submit" class="btn btn-primary btn-lg">Soumettre</button>
+
+         </div>
+
+    {{ form_end(form) }}
+
+    <ul>
+        <li>
+            <a href="{{ path('user_index') }}">Back to the list</a>
+        </li>
+    </ul>
+
+{% endblock %}
