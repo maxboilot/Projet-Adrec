@@ -1,0 +1,7 @@
+Users:
+  usersform:
+    lastname: "Quel est votre Nom ?"
+    firstname: "Quel est votre Prénom ?"
+    birthat: "Merci d'indiquer votre date de naissance"
+    phone: "Veuillez saisir votre numéro de téléphone"
+    email: "Quel est votre adresse Email ?"
