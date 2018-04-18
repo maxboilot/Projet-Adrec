@@ -8,13 +8,14 @@ use AppBundle\Model\QuestionnaireHandler;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class QuestionController extends Controller
 {
     /**
      * @Route("/question", name="question")
      */
-    public function CreateQuestionAction()
+    public function CreateQuestionAction(SessionInterface $session)
     {
         $data = new QuestionnaireHandler();
 
@@ -44,6 +45,10 @@ class QuestionController extends Controller
                 }
 
                 $em->flush();
+
+                $id = $user->getId();
+
+                $session->set('user_id', $id);
 
                 $flow->reset(); // remove step data from the session
 

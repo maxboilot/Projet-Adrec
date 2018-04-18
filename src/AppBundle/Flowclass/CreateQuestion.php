@@ -20,7 +20,7 @@ class CreateQuestion extends FormFlow
                 'form_type' => CreateQuestionStep2Form::class,
                 'skip' => function($estimatedCurrentStepNumber, FormFlowInterface $flow) {
                     $data = $flow->getFormData();
-                    dump($data);
+                  
 
                     if (isset($data['statut'])){
                         if ($data['statut'] == 'Demandeur(se) d\'emploi' || $data['statut'] == 'Etudiant') {
