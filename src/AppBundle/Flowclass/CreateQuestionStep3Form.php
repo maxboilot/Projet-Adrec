@@ -19,7 +19,7 @@ class CreateQuestionStep3Form extends AbstractType
 
         $builder->add('nombreHeuresTravaille', ChoiceType::class, [
             'label' => 'Donnez nous un peu plus de précision...', 'required' => true, 'choices' => [
-                 'J\'exerce ou j\'ai exercé(e) une activité salarié
+                 'J\'exerce ou j\'ai exercé(e) une activité salariée
                  d\'au moins 24 mois, consécutifs ou non, dans le
                  secteur privé au cours des 5 dernières années.'=>'activiteSalarieOk',
                  'J\'effectue ou j\'ai effectué 1600 heures (environ 11 mois)

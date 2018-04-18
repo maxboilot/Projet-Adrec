@@ -46,7 +46,7 @@ class UserController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $repo = $em->getRepository(User::class);
-        $user = $repo->find($id);
+        $user = $repo->find('user_id');
 
 
 
@@ -56,6 +56,7 @@ class UserController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $user = new User();
             $em->persist($user);
             $em->flush();
 

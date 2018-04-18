@@ -11,7 +11,7 @@ class CreateQuestion extends FormFlow
     protected function loadStepsConfig() {
         return array(
             array(
-                //'label' => 'wheels',
+                'label' => 'Question1',
                 'form_type' => CreateQuestionStep1Form::class,
 
             ),
@@ -32,7 +32,7 @@ class CreateQuestion extends FormFlow
             ),
 
             array(
-                //'label' => 'engine',
+                'label' => 'Question2',
                 'form_type' => CreateQuestionStep21Form::class,
                 'skip' => function($estimatedCurrentStepNumber, FormFlowInterface $flow) {
                     $data = $flow->getFormData();

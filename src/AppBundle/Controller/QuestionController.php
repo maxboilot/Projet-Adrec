@@ -45,11 +45,9 @@ class QuestionController extends Controller
 
                 $em->flush();
 
-
-
                 $flow->reset(); // remove step data from the session
 
-               return $this->redirect($this->generateUrl('toto'));  // redirect when done
+               return $this->redirect($this->generateUrl('user_new'));  // redirect when done
             }
         }
 

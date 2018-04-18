@@ -27,4 +27,5 @@ class DefaultController extends Controller
       return $this->render('default/result_form.html.twig', [
 
       ]);
+  }
 }

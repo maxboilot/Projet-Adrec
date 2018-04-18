@@ -9,11 +9,11 @@ class CreateQuestionStep1Form extends AbstractType {
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
 
-        $validValues = array('Salarié'=>'Salarié' ,'DE'=>'Demandeur(se) d\'emploi','Etudiant'=>'Etudiant' );
+        $validValues = array('Salarié(e)'=>'Salarié(e)' ,'DE'=>'Demandeur(se) d\'emploi','Etudiant'=>'Etudiant(e)' );
         $builder->add('statut', ChoiceType::class, array(
             'choices' => array_combine($validValues, $validValues),
             'placeholder' => '',
-            'label' => 'Quel est votre situation actuel?',
+            'label' => 'Quelle est votre situation actuelle?',
             'expanded' => true,
         ));
     }
