@@ -7,7 +7,27 @@
 
         <p class="lead">D'après vos réponses et les informations saisies, voici les financements qui peuvent s'offrirent à vous :</p>
 
+        <div>
+            {% if answers == 'Salarié' %}
+                <img src="{{ asset('assets/images/fongecif.png') }} width: 100px height: 100px">
+            {% endif %}
 
+            {% if answers == 'Demandeur(se) d\'emploi' %}
+                <img src="{{ asset('assets/images/pole.png') }}">
+                <img src="{{ asset('assets/images/region.png') }}">
+            {% endif %}
+
+            {% if answers == 'Etudiant(e)' %}
+                <img src="{{ asset('assets/images/pole.png') }}">
+                {% if answers == 'Etudiant(e)' %}
+                    <img src="{{ asset('assets/images/mission-locale.png') }}">
+                {% endif %}
+            {% endif %}
+
+            {% if answers == 'RQTH' %}
+                <img src="{{ asset('assets/images/agefiph.png') }}">
+            {% endif %}
+        </div>
 
     </div>
 

@@ -4,6 +4,8 @@ namespace AppBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use AppBundle\Entity\Answer;
 
 class DefaultController extends Controller
 {
@@ -21,11 +23,20 @@ class DefaultController extends Controller
   * @Route("/{_locale}/resultat_formulaire", name="result_form")
   */
 
-  public function userAction(Request $request)
+  public function userAction(Request $request, SessionInterface $session)
   {
 
-      return $this->render('default/result_form.html.twig', [
+    $id = $session->get('user_id');
 
+
+      $em = $this->getDoctrine()->getManager();
+
+      $answers = $em->getRepository(Answer::class)->findBy(array(
+          'user' => $id,
+      ));
+
+      return $this->render('default/result_form.html.twig', [
+          'answers' => $answers
       ]);
   }
 }
